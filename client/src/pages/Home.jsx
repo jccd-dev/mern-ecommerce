@@ -1,5 +1,6 @@
 import Announcement from "../components/Announcement";
 import Carousel from "../components/CarouselS";
+import Categories from "../components/Categories";
 import Navbar from "../components/Navbar";
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
       <Announcement />
       <Navbar />
       <Carousel />
+      <Categories />
     </>
   );
 };
