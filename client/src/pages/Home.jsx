@@ -2,6 +2,8 @@ import Announcement from "../components/Announcement";
 import Carousel from "../components/CarouselS";
 import Categories from "../components/Categories";
 import Navbar from "../components/Navbar";
+import Newsletter from "../components/Newsletter";
+import Products from "../components/Products";
 
 const Home = () => {
   return (
@@ -10,6 +12,8 @@ const Home = () => {
       <Navbar />
       <Carousel />
       <Categories />
+      <Products />
+      <Newsletter />
     </>
   );
 };

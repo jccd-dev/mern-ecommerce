@@ -1,4 +1,4 @@
-import { categories } from "../data/Courousel";
+import { categories } from "../data/DataItems";
 import CategoriesItem from "./CategoriesItem";
 const Categories = () => {
   return (

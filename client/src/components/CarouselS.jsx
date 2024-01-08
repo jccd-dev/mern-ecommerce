@@ -6,7 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 
-import { SliderItems } from "../data/Courousel";
+import { SliderItems } from "../data/DataItems";
 import SlideItem from "./Carousel/SlideItem";
 
 const CarouselS = () => {
