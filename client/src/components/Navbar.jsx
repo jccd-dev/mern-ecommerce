@@ -9,7 +9,7 @@ import {
 const Navbar = () => {
   return (
     <div className="h-[60px]">
-      <div className="py-2 px-5 flex items-center justify-between">
+      <div className="py-2 px-5 flex items-center justify-between h-full">
         <section id="left" className="flex-1 flex items-center">
           <span className="text-sm cursor-pointer">EN</span>
           <div className="border border-slate-500/15 flex items-center ml-6 py-1 px-2 rounded-md">
