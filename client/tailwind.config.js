@@ -8,7 +8,11 @@ export default {
         primary: "#9BB8CD",
         secondary: "#FFF7D4",
         yellowed: "#EEC759",
-        sage: "#B1C381",
+        sage: {
+          400: "#c8d5a7",
+          500: "#B1C381",
+          600: "#7c895a",
+        },
       },
     },
   },
