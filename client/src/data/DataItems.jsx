@@ -12,21 +12,21 @@ export const SliderItems = [
     img: slide1,
     title: "Hot Trends Alert!",
     desc: "Revamp your wardrobe with our latest collection. Enjoy 25% off sitewide! Shop Now",
-    bg: "bg-primary/80",
+    bg: "bg-secondary/80",
   },
   {
     id: 2,
     img: slide3,
     title: "Glow Up Your Style",
     desc: "Discover the season's must-haves. Shop now and enjoy a special 20% discount! Explore Styles",
-    bg: "bg-secondary/80",
+    bg: "bg-yellowed/80",
   },
   {
     id: 3,
     img: slide4,
     title: "Limited Edition Elegance",
     desc: "Elevate your look with our exquisite collection. Avail a 30% discount today! Explore Limited Editions",
-    bg: "bg-sage/80",
+    bg: "bg-sage-500/80",
   },
 ];
 

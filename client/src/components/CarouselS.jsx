@@ -11,7 +11,7 @@ import SlideItem from "./Carousel/SlideItem";
 
 const CarouselS = () => {
   return (
-    <div className="w-full h-screen overflow-hidden">
+    <div className="w-full h-[40vh] md:h-screen overflow-hidden">
       <Swiper
         slidesPerView={1}
         navigation

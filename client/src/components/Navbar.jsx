@@ -3,17 +3,18 @@ import {
   faMagnifyingGlass,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
-// import { Badge } from "@mui/material";
-// import { ShoppingCartOutlined } from "@mui/icons-material";
 
 const Navbar = () => {
   return (
     <div className="h-[60px]">
-      <div className="py-2 px-5 flex items-center justify-between h-full">
+      <div className="py-2 px-4 md:px-5 flex items-center justify-between h-full">
         <section id="left" className="flex-1 flex items-center">
-          <span className="text-sm cursor-pointer">EN</span>
-          <div className="border border-slate-500/15 flex items-center ml-6 py-1 px-2 rounded-md">
-            <input type="text" className="border-none outline-none" />
+          <span className="text-sm cursor-pointer hidden md:block">EN</span>
+          <div className="border border-slate-500/15 flex items-center ml-0 md:ml-6 py-1 px-2 rounded-md">
+            <input
+              type="text"
+              className="border-none outline-none w-12 md:w-auto"
+            />
             <FontAwesomeIcon
               icon={faMagnifyingGlass}
               className="text-gray-400 text-sm"
@@ -21,12 +22,19 @@ const Navbar = () => {
           </div>
         </section>
         <section id="center" className="flex-1 text-center">
-          <h1 className="font-bold">JC-SHOP</h1>
+          <h1 className="font-bold text-sm md:text-2xl">JC-SHOP</h1>
         </section>
-        <section id="right" className="flex-1 flex items-center justify-end">
-          <div className="text-sm cursor-pointer ml-6">Register</div>
-          <div className="text-sm cursor-pointer ml-6">Login</div>
-          <div className="text-sm cursor-pointer ml-6">
+        <section
+          id="right"
+          className="flex-[2] md:flex-1 flex items-center justify-center md:justify-end"
+        >
+          <div className="text-xs md:text-sm cursor-pointer ml-2 md:ml-6">
+            Register
+          </div>
+          <div className="text-xs md:text-sm cursor-pointer ml-2 md:ml-6">
+            Login
+          </div>
+          <div className="text-xs md:text-sm cursor-pointer ml-2 md:ml-6">
             {/* <Badge badgeContent={4} color="primary">
               <ShoppingCartOutlined />
             </Badge> */}
