@@ -6,10 +6,12 @@ const CategoriesItem = (props) => {
       <img
         src={props.img}
         alt={`category ${props.img}`}
-        className="w-full h-full object-cover"
+        className="w-full h-[20vh] md:h-full object-cover"
       />
       <div className="info absolute inset-0 w-full h-full flex flex-col items-center justify-center">
-        <span className="title text-white mb-5">{props.title}</span>
+        <h1 className="title text-white mb-5 text-2xl font-normal md:font-semibold">
+          {props.title}
+        </h1>
         <button className="border-none p-2 bg-white text-sage cursor-pointer font-[600]">
           Shop Now
         </button>
