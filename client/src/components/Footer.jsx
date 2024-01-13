@@ -17,8 +17,8 @@ import Links from "./Footer/Links";
 const Footer = () => {
   return (
     <div className="cont flex flex-col md:flex-row">
-      <section className="left flex-[2] flex flex-col p-5">
-        <h1 className="logo uppercase font-black text-2xl">JC-SHop</h1>
+      <section className="left flex flex-[2] flex-col p-5">
+        <h1 className="logo text-2xl font-black uppercase">JC-SHop</h1>
         <div className="desc my-5">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus illo
           molestias expedita quod culpa aspernatur placeat totam! Fuga commodi
@@ -40,8 +40,8 @@ const Footer = () => {
         </div>
       </section>
       <section className="center flex-1 p-5">
-        <h3 className="title mb-7 font-semibold">Useful Links</h3>
-        <ul className="m-0 p-0 list-none flex flex-wrap">
+        <h3 className="title mb-7 font-bold">Useful Links</h3>
+        <ul className="m-0 flex list-none flex-wrap p-0">
           <Links LinkName="Home" Link="#" />
           <Links LinkName="Cart" Link="#" />
           <Links LinkName="Man Fashion" Link="#" />
@@ -53,7 +53,7 @@ const Footer = () => {
         </ul>
       </section>
       <section className="right flex-1 p-5">
-        <h3 className="title mb-7 font-semibold">Contact</h3>
+        <h3 className="title mb-7 font-bold">Contact</h3>
         <div className="mb-5 flex items-center">
           <FontAwesomeIcon icon={faLocationDot} />{" "}
           <p className="ml-2">Bato Camarines Sur, Philippines</p>
