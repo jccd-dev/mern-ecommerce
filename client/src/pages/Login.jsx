@@ -3,11 +3,11 @@ const Login = () => {
     "https://images.unsplash.com/photo-1554342872-034a06541bad?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
   return (
     <div
-      className="w-screen h-screen bg-cover flex items-center justify-center relative"
+      className="relative flex h-screen w-screen items-center justify-center bg-center object-cover md:bg-cover"
       style={{ backgroundImage: `url(${imgURL})` }}
     >
-      <div className="absolute w-full h-full bg-slate-600/20 inset-0 z-0"></div>
-      <div className="wrapper w-1/4 p-5 bg-white z-10">
+      <div className="absolute inset-0 z-0 h-full w-full bg-slate-600/20"></div>
+      <div className="wrapper z-10  mx-3 w-full bg-white p-5 md:mx-0 md:w-1/4">
         <h1 className="title tex-2xl font-[300]">SIGN IN</h1>
         <form className="form flex flex-col" id="login_form">
           <input
@@ -15,27 +15,27 @@ const Login = () => {
             name="email"
             id="email"
             placeholder="Email"
-            className="flex-1 min-w-[40%] my-2 p-2 outline-none border"
+            className="my-2 min-w-[40%] flex-1 border p-2 outline-none"
           />
           <input
             type="password"
             name="password"
             id="password"
             placeholder="Password"
-            className="flex-1 min-w-[40%] my-2 p-2 outline-none border"
+            className="my-2 min-w-[40%] flex-1 border p-2 outline-none"
           />
-          <button className="login w-full border-none py-3 px-5 bg-sage-500 hover:bg-sage-600 text-white cursor-pointer mb-3">
+          <button className="login mb-3 w-full cursor-pointer border-none bg-sage-500 px-5 py-3 text-white hover:bg-sage-600">
             LOGIN
           </button>
           <a
             href=""
-            className="link uppercase my-2 text-xs hover:underline cursor-pointer text-slate-900"
+            className="link my-2 cursor-pointer text-xs uppercase text-slate-900 hover:underline"
           >
             Forgot password?
           </a>
           <a
             href=""
-            className="link uppercase my-2 text-xs hover:underline cursor-pointer text-slate-900"
+            className="link my-2 cursor-pointer text-xs uppercase text-slate-900 hover:underline"
           >
             Create new account
           </a>
