@@ -1,11 +1,11 @@
 const TopBtn = ({ type, buttonName }) => {
   return (
     <button
-      className={`topbtn p-2 font-semibold cursor-pointer ${
+      className={`topbtn cursor-pointer p-2 font-semibold ${
         type === "filled"
-          ? "border-none text-white bg-primary"
-          : "bg-transparent border-black border"
-      } uppercase`}
+          ? "border-none bg-primary text-white"
+          : "bg-transparent md:border md:border-black"
+      } text-sm uppercase lg:text-lg`}
     >
       {buttonName}
     </button>
