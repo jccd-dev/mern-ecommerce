@@ -54,14 +54,14 @@ const Product = () => {
             <div className="amount flex items-center font-bold">
               <FontAwesomeIcon
                 icon={faMinus}
-                className="cursor-pointer text-xl"
+                className="cursor-pointer text-lg"
               />
-              <span className="quantity border-sage mx-2 flex h-8 w-8 items-center justify-center rounded-lg border text-xl">
+              <span className="quantity border-sage mx-2 flex h-8 w-8 items-center justify-center rounded-lg border text-lg">
                 2
               </span>
               <FontAwesomeIcon
                 icon={faPlus}
-                className="cursor-pointer text-xl"
+                className="cursor-pointer text-lg"
               />
             </div>
             <button className="cursor-pointer bg-yellowed px-6 py-2 text-lg font-semibold hover:bg-yellow-500 md:px-4">
@@ -71,7 +71,7 @@ const Product = () => {
         </div>
       </section>
       <Newsletter />
-      <Footer />
+      <Footer bgColor={"bg-transparent"} />
     </>
   );
 };

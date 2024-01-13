@@ -3,7 +3,7 @@ const TopBtn = ({ type, buttonName }) => {
     <button
       className={`topbtn cursor-pointer p-2 font-semibold ${
         type === "filled"
-          ? "border-none bg-primary text-white"
+          ? "border-none bg-yellowed text-white"
           : "bg-transparent md:border md:border-black"
       } text-sm uppercase lg:text-lg`}
     >

@@ -59,7 +59,7 @@ const ProductList = () => {
       </section>
       <Products />
       <Newsletter />
-      <Footer />
+      <Footer bgColor={"bg-transparent"} />
     </>
   );
 };

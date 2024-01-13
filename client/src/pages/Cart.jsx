@@ -4,10 +4,12 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Announcement from "../components/Announcement";
 const Cart = () => {
   return (
     <>
       <Navbar />
+      <Announcement />
       <div className="p-2 md:p-5">
         <h1 className="title my-2 text-center text-2xl font-[300]">MY CART</h1>
         <section className="top flex items-center justify-between p-0 md:p-5">
@@ -32,9 +34,10 @@ const Cart = () => {
                   alt=""
                   className="w-32 md:w-48"
                 />
-                <div className="details flex flex-col justify-around p-5">
-                  <span className="prodName text-lg font-bold md:font-normal">
-                    <b className="hidden md:block">Product:</b> Product Name
+                <div className="details flex flex-1 flex-col justify-around p-5">
+                  <span className="prodName inline-flex w-full text-lg font-bold md:font-normal">
+                    <b className="hidden md:mr-1 md:block">Product:</b> Product
+                    Name
                   </span>
                   <span className="prodId">
                     <b>ID:</b> 923435354634
@@ -49,14 +52,14 @@ const Cart = () => {
                 <div className="amount mb-5 flex items-center font-bold">
                   <FontAwesomeIcon
                     icon={faMinus}
-                    className="cursor-pointer text-xl"
+                    className="cursor-pointer text-lg"
                   />
-                  <span className="quantity border-sage mx-2 flex h-8 w-8 items-center justify-center rounded-lg border text-xl">
+                  <span className="quantity border-sage mx-2 flex h-8 w-8 items-center justify-center rounded-lg border text-lg">
                     2
                   </span>
                   <FontAwesomeIcon
                     icon={faPlus}
-                    className="cursor-pointer text-xl"
+                    className="cursor-pointer text-lg"
                   />
                 </div>
                 <div className="prodPrice mb-5 text-3xl font-light md:mb-0">
@@ -111,13 +114,13 @@ const Cart = () => {
             <SummaryItem itemText={"Shiping"} price={10.0} />
             <SummaryItem itemText={"Shipping Discount"} price={"05.00"} />
             <SummaryItem type={"total"} itemText={"Total"} price={85} />
-            <button className="w-full bg-primary p-2 font-semibold text-white">
+            <button className="w-full bg-yellowed p-2 font-semibold text-black  hover:bg-yellow-500">
               Checkout
             </button>
           </div>
         </section>
       </div>
-      <Footer />
+      <Footer bgColor={"bg-secondary"} />
     </>
   );
 };

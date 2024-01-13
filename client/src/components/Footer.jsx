@@ -14,9 +14,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Icons from "./Footer/Icons";
 import Links from "./Footer/Links";
 
-const Footer = () => {
+const Footer = ({ bgColor }) => {
   return (
-    <div className="cont flex flex-col md:flex-row">
+    <div className={`cont flex flex-col md:flex-row ${bgColor}`}>
       <section className="left flex flex-[2] flex-col p-5">
         <h1 className="logo text-2xl font-black uppercase">JC-SHop</h1>
         <div className="desc my-5">

@@ -15,7 +15,7 @@ const Home = () => {
       <Categories />
       <Products />
       <Newsletter />
-      <Footer />
+      <Footer bgColor={"bg-transparent"} />
     </>
   );
 };
