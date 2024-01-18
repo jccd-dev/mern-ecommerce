@@ -5,11 +5,13 @@ import productRouter from "./routes/productRoute.js";
 import auth from "./routes/auth.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
-import dbconn from "./config/dbconn.js";
+import { dbconn } from "./config/dbconn.js";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
 dotenv.config();
+app.use(cors());
 app.use("/api/user", userRouter);
 app.use("/api/auth", auth);
 app.use("/api/products", productRouter);
