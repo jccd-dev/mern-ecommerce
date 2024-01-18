@@ -4,6 +4,7 @@ import Color from "../components/Product/Color";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
+
 const Product = () => {
   return (
     <>

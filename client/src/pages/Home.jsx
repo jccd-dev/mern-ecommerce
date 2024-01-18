@@ -13,7 +13,7 @@ const Home = () => {
       <Navbar />
       <Carousel />
       <Categories />
-      <Products />
+      {/* <Products /> */}
       <Newsletter />
       <Footer bgColor={"bg-transparent"} />
     </>

@@ -6,10 +6,24 @@ import Product from "./pages/Product";
 import ProductList from "./pages/ProductList";
 import Register from "./pages/Register";
 
+import { Routes, Route, Navigate } from "react-router-dom";
+
 function App() {
+  // temporary for user authentication
+  const userAuth = true;
   return (
     <>
-      <Cart />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/login"
+          element={userAuth ? <Navigate to="/" /> : <Login />}
+        />
+        <Route path="/products/:category?" element={<ProductList />} />
+        <Route path="/product/:id" element={<Product />} />
+        <Route path="/cart" element={<Cart />} />
+      </Routes>
     </>
   );
 }
