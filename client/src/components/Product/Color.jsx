@@ -2,10 +2,16 @@ const Color = (props) => {
   const style = {
     backgroundColor: props.color,
   };
+
+  const selectColor = () => {
+    props.sColor(props.color);
+  };
+
   return (
     <div
-      className="w-5 h-5 rounded-full mx-1 cursor-pointer"
+      className="mx-1 h-5 w-5 cursor-pointer rounded-full"
       style={style}
+      onClick={selectColor}
     ></div>
   );
 };

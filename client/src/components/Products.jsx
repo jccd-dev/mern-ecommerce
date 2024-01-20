@@ -65,7 +65,7 @@ const Products = ({ category, filters, sort }) => {
         <ProductItem img={item.img} key={item.id} />
       ))} */}
       {filteredProduct.map((item) => (
-        <ProductItem img={item.image} key={item.id} />
+        <ProductItem img={item.image} key={item._id} id={item._id} />
       ))}
     </div>
   );
