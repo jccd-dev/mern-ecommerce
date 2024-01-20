@@ -3,49 +3,53 @@ import {
   faMagnifyingGlass,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
-
+import { useSelector } from "react-redux";
 const Navbar = () => {
+  const cartQuantity = useSelector((state) => state.cart.quantity);
+  console.log(cartQuantity);
   return (
     <div className="h-[60px]">
-      <div className="py-2 px-4 md:px-5 flex items-center justify-between h-full">
-        <section id="left" className="flex-1 flex items-center">
-          <span className="text-sm cursor-pointer hidden md:block">EN</span>
-          <div className="border border-slate-500/15 flex items-center ml-0 md:ml-6 py-1 px-2 rounded-md">
+      <div className="flex h-full items-center justify-between px-4 py-2 md:px-5">
+        <section id="left" className="flex flex-1 items-center">
+          <span className="hidden cursor-pointer text-sm md:block">EN</span>
+          <div className="ml-0 flex items-center rounded-md border border-slate-500/15 px-2 py-1 md:ml-6">
             <input
               type="text"
-              className="border-none outline-none w-12 md:w-auto"
+              className="w-12 border-none outline-none md:w-auto"
             />
             <FontAwesomeIcon
               icon={faMagnifyingGlass}
-              className="text-gray-400 text-sm"
+              className="text-sm text-gray-400"
             />
           </div>
         </section>
         <section id="center" className="flex-1 text-center">
-          <h1 className="font-bold text-sm md:text-2xl">JC-SHOP</h1>
+          <h1 className="text-sm font-bold md:text-2xl">JC-SHOP</h1>
         </section>
         <section
           id="right"
-          className="flex-[2] md:flex-1 flex items-center justify-center md:justify-end"
+          className="flex flex-[2] items-center justify-center md:flex-1 md:justify-end"
         >
-          <div className="text-xs md:text-sm cursor-pointer ml-2 md:ml-6">
+          <div className="ml-2 cursor-pointer text-xs md:ml-6 md:text-sm">
             Register
           </div>
-          <div className="text-xs md:text-sm cursor-pointer ml-2 md:ml-6">
+          <div className="ml-2 cursor-pointer text-xs md:ml-6 md:text-sm">
             Login
           </div>
-          <div className="text-xs md:text-sm cursor-pointer ml-2 md:ml-6">
+          <div className="ml-2 cursor-pointer text-xs md:ml-6 md:text-sm">
             {/* <Badge badgeContent={4} color="primary">
               <ShoppingCartOutlined />
             </Badge> */}
             <button
               type="button"
-              className="relative inline-flex items-center p-2 text-sm font-medium text-center text-black/80 focus:outline-none focus:ring-blue-300 border-none"
+              className="relative inline-flex items-center border-none p-2 text-center text-sm font-medium text-black/80 focus:outline-none focus:ring-blue-300"
             >
               <FontAwesomeIcon icon={faShoppingCart} />
-              <div className="absolute inline-flex items-center justify-center w-5 h-5 p-2 text-xs font-bold text-white bg-sky-600 rounded-full -top-2 -end-2 ">
-                4
-              </div>
+              {cartQuantity > 0 && (
+                <div className="absolute -end-2 -top-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-sky-600 p-2 text-xs font-bold text-white ">
+                  {cartQuantity}
+                </div>
+              )}
             </button>
           </div>
         </section>

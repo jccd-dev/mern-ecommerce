@@ -9,6 +9,8 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { publicRequest } from "../utils/requestMethod";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/cart";
 
 const Product = () => {
   const { id } = useParams();
@@ -17,6 +19,8 @@ const Product = () => {
   const [color, setColor] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState("");
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -44,6 +48,10 @@ const Product = () => {
    */
   const handleQuantity = (click) => {
     setQuantity((prevQuanity) => Math.max(prevQuanity + click, 1));
+  };
+
+  const handleAddCart = () => {
+    dispatch(addProduct({ ...product, quantity, color, size }));
   };
 
   return (
@@ -104,7 +112,10 @@ const Product = () => {
                 onClick={() => handleQuantity(1)}
               />
             </div>
-            <button className="cursor-pointer bg-yellowed px-6 py-2 text-lg font-semibold hover:bg-yellow-500 md:px-4">
+            <button
+              className="cursor-pointer bg-yellowed px-6 py-2 text-lg font-semibold hover:bg-yellow-500 md:px-4"
+              onClick={handleAddCart}
+            >
               Add to Cart
             </button>
           </div>
