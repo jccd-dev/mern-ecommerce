@@ -7,6 +7,7 @@ import ProductList from "./pages/ProductList";
 import Register from "./pages/Register";
 
 import { Routes, Route, Navigate } from "react-router-dom";
+import Success from "./pages/Success";
 
 function App() {
   // temporary for user authentication
@@ -23,6 +24,7 @@ function App() {
         <Route path="/products/:category?" element={<ProductList />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/success" element={<Success />} />
       </Routes>
     </>
   );

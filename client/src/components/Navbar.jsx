@@ -4,6 +4,7 @@ import {
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const cartQuantity = useSelector((state) => state.cart.quantity);
   console.log(cartQuantity);
@@ -40,17 +41,19 @@ const Navbar = () => {
             {/* <Badge badgeContent={4} color="primary">
               <ShoppingCartOutlined />
             </Badge> */}
-            <button
-              type="button"
-              className="relative inline-flex items-center border-none p-2 text-center text-sm font-medium text-black/80 focus:outline-none focus:ring-blue-300"
-            >
-              <FontAwesomeIcon icon={faShoppingCart} />
-              {cartQuantity > 0 && (
-                <div className="absolute -end-2 -top-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-sky-600 p-2 text-xs font-bold text-white ">
-                  {cartQuantity}
-                </div>
-              )}
-            </button>
+            <Link to={"/cart"}>
+              <button
+                type="button"
+                className="relative inline-flex items-center border-none p-2 text-center text-sm font-medium text-black/80 focus:outline-none focus:ring-blue-300"
+              >
+                <FontAwesomeIcon icon={faShoppingCart} />
+                {cartQuantity > 0 && (
+                  <div className="absolute -end-2 -top-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-sky-600 p-2 text-xs font-bold text-white ">
+                    {cartQuantity}
+                  </div>
+                )}
+              </button>
+            </Link>
           </div>
         </section>
       </div>

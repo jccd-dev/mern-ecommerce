@@ -5,7 +5,45 @@ import Navbar from "../components/Navbar";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Announcement from "../components/Announcement";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { userRequest } from "../utils/requestMethod";
+import { useNavigate } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+
+const KEY = import.meta.env.VITE_REACT_APP_STRIPE;
+
 const Cart = () => {
+  const shipping = 10;
+  const cart = useSelector((state) => state.cart);
+
+  const makePayment = async () => {
+    const stripe = await loadStripe(KEY);
+
+    const response = await userRequest.post(
+      "checkout/payment",
+      {
+        products: cart,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    const session = response.data;
+
+    const result = await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    console.log(session);
+    if (result.error) {
+      console.log(result.error);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -24,97 +62,70 @@ const Cart = () => {
           </div>
           <TopBtn buttonName={"Checkout Now"} type={"filled"} />
         </section>
-        <section className="bottom flex flex-col justify-between md:flex-row">
+        <section className="bottom mt-5 flex flex-col justify-between md:flex-row">
           <div className="info flex-[3]">
             {/* product */}
-            <div className="product flex flex-col justify-between md:flex-row">
-              <div className="prodDetails flex flex-[2]">
-                <img
-                  src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A"
-                  alt=""
-                  className="w-32 md:w-48"
-                />
-                <div className="details flex flex-1 flex-col justify-around p-5">
-                  <span className="prodName inline-flex w-full text-lg font-bold md:font-normal">
-                    <b className="hidden md:mr-1 md:block">Product:</b> Product
-                    Name
-                  </span>
-                  <span className="prodId">
-                    <b>ID:</b> 923435354634
-                  </span>
-                  <span className="prodColor h-5 w-5 rounded-full bg-primary"></span>
-                  <span className="prodSize">
-                    <b>Size:</b> 37.5
-                  </span>
+            {cart.products.map((product) => (
+              <div
+                className="product my-4 flex flex-col justify-between md:flex-row"
+                key={product._id}
+              >
+                <div className="prodDetails flex flex-[2]">
+                  <div className="flex w-1/4 items-center justify-center">
+                    <img
+                      src={product.image}
+                      alt=""
+                      className="w-full md:w-4/5"
+                    />
+                  </div>
+                  <div className="details flex flex-1 flex-col justify-around p-3 md:p-5">
+                    <span className="prodName inline-flex w-full text-lg font-bold md:font-normal">
+                      <b className="hidden md:mr-1 md:block">Product:</b>{" "}
+                      {product.title}
+                    </span>
+                    <span className="prodId">
+                      <b>ID:</b> {product._id}
+                    </span>
+                    <span className="prodColor">
+                      <b>Color:</b> {product.color}
+                    </span>
+                    <span className="prodSize">
+                      <b>Size:</b> {product.size}
+                    </span>
+                  </div>
+                </div>
+                <div className="priceDetails flex flex-1 flex-row items-center justify-around md:flex-col md:justify-center">
+                  <div className="amount mb-5 flex items-center font-bold">
+                    <FontAwesomeIcon
+                      icon={faMinus}
+                      className="cursor-pointer text-lg"
+                    />
+                    <span className="quantity border-sage mx-2 flex h-8 w-8 items-center justify-center rounded-lg border text-lg">
+                      {product.quantity}
+                    </span>
+                    <FontAwesomeIcon
+                      icon={faPlus}
+                      className="cursor-pointer text-lg"
+                    />
+                  </div>
+                  <div className="prodPrice mb-5 text-3xl font-light md:mb-0">
+                    <b>$</b> {product.price * product.quantity}
+                  </div>
                 </div>
               </div>
-              <div className="priceDetails flex flex-1 flex-row items-center justify-around md:flex-col md:justify-center">
-                <div className="amount mb-5 flex items-center font-bold">
-                  <FontAwesomeIcon
-                    icon={faMinus}
-                    className="cursor-pointer text-lg"
-                  />
-                  <span className="quantity border-sage mx-2 flex h-8 w-8 items-center justify-center rounded-lg border text-lg">
-                    2
-                  </span>
-                  <FontAwesomeIcon
-                    icon={faPlus}
-                    className="cursor-pointer text-lg"
-                  />
-                </div>
-                <div className="prodPrice mb-5 text-3xl font-light md:mb-0">
-                  <b>$</b> 30.00
-                </div>
-              </div>
-            </div>
+            ))}
             <hr className="h-[1px] border-none bg-slate-300/40" />
-            <div className="product flex flex-col justify-between md:flex-row">
-              <div className="prodDetails flex flex-[2]">
-                <img
-                  src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A"
-                  alt=""
-                  className="w-32 md:w-48"
-                />
-                <div className="details flex flex-col justify-around p-5">
-                  <span className="prodName text-lg font-bold md:font-normal">
-                    <b className="hidden md:block">Product:</b> Product Name
-                  </span>
-                  <span className="prodId">
-                    <b>ID:</b> 923435354634
-                  </span>
-                  <span className="prodColor h-5 w-5 rounded-full bg-primary"></span>
-                  <span className="prodSize">
-                    <b>Size:</b> 37.5
-                  </span>
-                </div>
-              </div>
-              <div className="priceDetails flex flex-1 flex-row items-center justify-around md:flex-col md:justify-center">
-                <div className="amount mb-5 flex items-center font-bold">
-                  <FontAwesomeIcon
-                    icon={faMinus}
-                    className="cursor-pointer text-xl"
-                  />
-                  <span className="quantity border-sage mx-2 flex h-8 w-8 items-center justify-center rounded-lg border text-xl">
-                    2
-                  </span>
-                  <FontAwesomeIcon
-                    icon={faPlus}
-                    className="cursor-pointer text-xl"
-                  />
-                </div>
-                <div className="prodPrice mb-5 text-3xl font-light md:mb-0">
-                  <b>$</b> 30.00
-                </div>
-              </div>
-            </div>
           </div>
           <div className="summary h-auto flex-1 rounded-lg border-[0.5px] border-slate-300 p-5">
             <h1 className="sumTitle text-2xl font-[200]">Order Summary</h1>
-            <SummaryItem itemText={"Subtotal"} price={80.0} />
-            <SummaryItem itemText={"Shiping"} price={10.0} />
-            <SummaryItem itemText={"Shipping Discount"} price={"05.00"} />
-            <SummaryItem type={"total"} itemText={"Total"} price={85} />
-            <button className="w-full bg-yellowed p-2 font-semibold text-black  hover:bg-yellow-500">
+            <SummaryItem itemText={"Subtotal"} price={cart.total} />
+            <SummaryItem itemText={"Shiping"} price={shipping} />
+            <SummaryItem itemText={"Shipping Discount"} price={shipping} />
+            <SummaryItem type={"total"} itemText={"Total"} price={cart.total} />
+            <button
+              className="w-full bg-yellowed p-2 font-semibold text-black  hover:bg-yellow-500"
+              onClick={makePayment}
+            >
               Checkout
             </button>
           </div>
