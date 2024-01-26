@@ -10,11 +10,11 @@ const router = Express.Router();
 
 //create order
 router.post("/", verifyToken, async (req, res) => {
-  const newOrder = new Order(req.body);
-  console.log(req.body);
   try {
+    const newOrder = new Order(req.body);
     const savedOrder = await newOrder.save();
-    res.status(200).json(savedOrder);
+    // console.log(req.body, "router is running");
+    return res.status(200).json(savedOrder);
   } catch (error) {
     console.log(error);
     res.status(500).json("internal server error");

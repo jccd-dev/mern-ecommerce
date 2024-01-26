@@ -11,7 +11,7 @@ router.post("/payment", async (req, res) => {
 
     const lineItems = products.products.map((product) => ({
       price_data: {
-        currency: "php",
+        currency: "usd",
         product_data: {
           name: product.title,
           images: [product.image],
@@ -22,20 +22,31 @@ router.post("/payment", async (req, res) => {
     }));
 
     const session = await stripe.checkout.sessions.create({
+      ui_mode: "embedded",
       line_items: lineItems,
       mode: "payment",
       shipping_address_collection: {
         allowed_countries: ["US", "CA", "GB", "AU", "PH"], // Specify the allowed countries for shipping
       },
-      success_url: `${YOUR_DOMAIN}/success`,
-      cancel_url: `${YOUR_DOMAIN}/cart`,
+      redirect_on_completion: "never",
     });
 
-    res.json({ id: session.id });
+    res.send({
+      clientSecret: session.client_secret,
+      checkoutSessionId: session.id,
+    });
   } catch (error) {
     console.error("Error processing payment:", error);
     res.status(500).send("Internal Server Error");
   }
+});
+
+router.get("/session-status", async (req, res) => {
+  const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
+  const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
+
+  res.send(session);
 });
 
 export default router;

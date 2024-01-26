@@ -6,43 +6,11 @@ import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Announcement from "../components/Announcement";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { userRequest } from "../utils/requestMethod";
-import { useNavigate } from "react-router-dom";
-import { loadStripe } from "@stripe/stripe-js";
-
-const KEY = import.meta.env.VITE_REACT_APP_STRIPE;
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const shipping = 10;
   const cart = useSelector((state) => state.cart);
-
-  const makePayment = async () => {
-    const stripe = await loadStripe(KEY);
-
-    const response = await userRequest.post(
-      "checkout/payment",
-      {
-        products: cart,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    const session = response.data;
-
-    const result = await stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
-
-    console.log(session);
-    if (result.error) {
-      console.log(result.error);
-    }
-  };
 
   return (
     <>
@@ -122,12 +90,11 @@ const Cart = () => {
             <SummaryItem itemText={"Shiping"} price={shipping} />
             <SummaryItem itemText={"Shipping Discount"} price={shipping} />
             <SummaryItem type={"total"} itemText={"Total"} price={cart.total} />
-            <button
-              className="w-full bg-yellowed p-2 font-semibold text-black  hover:bg-yellow-500"
-              onClick={makePayment}
-            >
-              Checkout
-            </button>
+            <Link to={"/checkout"}>
+              <button className="w-full bg-yellowed p-2 font-semibold text-black  hover:bg-yellow-500">
+                Checkout
+              </button>
+            </Link>
           </div>
         </section>
       </div>

@@ -6,7 +6,7 @@ const verifyToken = (req, res, next) => {
   if (authHeader) {
     const token = authHeader.split(" ")[1];
     jwt.verify(token, process.env.JWT_TOKEN, (err, user) => {
-      if (err) res.status(403).json("Token is not Valid");
+      if (err) return res.status(403).json("Token is not Valid");
       req.user = user;
       next();
     });
@@ -20,7 +20,7 @@ const verifyTokenAndAuth = (req, res, next) => {
     if (req.user.id === req.params.id || req.user.isAdmin) {
       next();
     } else {
-      res.status(403).json({ message: "Unauthorized Action!" });
+      return res.status(403).json({ message: "Unauthorized Action!" });
     }
   });
 };
@@ -30,7 +30,7 @@ const verifyTokenAndAdmin = (req, res, next) => {
     if (req.user.isAdmin) {
       next();
     } else {
-      res.status(403).json({ message: "Unauthorized Action!" });
+      return res.status(403).json({ message: "Unauthorized Action!" });
     }
   });
 };

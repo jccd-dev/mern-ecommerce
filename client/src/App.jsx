@@ -8,6 +8,8 @@ import Register from "./pages/Register";
 
 import { Routes, Route, Navigate } from "react-router-dom";
 import Success from "./pages/Success";
+import Checkout from "./pages/Checkout";
+import Return from "./pages/Return";
 
 function App() {
   // temporary for user authentication
@@ -25,6 +27,8 @@ function App() {
         <Route path="/product/:id" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/success" element={<Success />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/return" element={<Return />} />
       </Routes>
     </>
   );
