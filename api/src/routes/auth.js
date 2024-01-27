@@ -19,7 +19,6 @@ router.post("/register", async (req, res) => {
   try {
     const saveUser = await newUser.save();
     res.status(200).json(saveUser);
-    console.log(saveUser);
   } catch (error) {
     res.status(500).json(error);
     console.log(error);
@@ -32,7 +31,7 @@ router.post("/login", async (req, res) => {
     const user = await Users.findOne({ username: req.body.username });
 
     if (!user) {
-      return res.status(401).json("Wrong Credential");
+      return res.status(401).json({ message: "Wrong Credential" });
     }
 
     const hashedPassword = CryptoJS.AES.decrypt(

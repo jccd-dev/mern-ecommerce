@@ -10,10 +10,11 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Success from "./pages/Success";
 import Checkout from "./pages/Checkout";
 import Return from "./pages/Return";
+import { useSelector } from "react-redux";
 
 function App() {
   // temporary for user authentication
-  const userAuth = true;
+  const userAuth = useSelector((state) => state.user.currentUser);
   return (
     <>
       <Routes>
