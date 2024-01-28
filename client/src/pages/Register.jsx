@@ -15,7 +15,7 @@ const Register = () => {
         <form className="form flex flex-col md:flex-wrap">
           <input
             type="text"
-            name="name"
+            name="first_name"
             id="name"
             className="mb-0 ml-0 mr-2 mt-5 min-w-[40%] flex-1 border p-2 outline-none"
             placeholder="First Name"
@@ -42,16 +42,16 @@ const Register = () => {
             placeholder="Email"
           />
           <input
-            type="password"
-            name="password"
-            id="password"
+            type="text"
+            name="p_number"
+            id="p_number"
             className="mb-0 ml-0 mr-2 mt-5 min-w-[40%] flex-1 border p-2 outline-none"
-            placeholder="Password"
+            placeholder="Phone Number"
           />
           <input
             type="password"
-            name="c_password"
-            id="c_password"
+            name="password"
+            id="password"
             className="mb-0 ml-0 mr-2 mt-5 min-w-[40%] flex-1 border p-2 outline-none"
             placeholder="Confirm Password"
           />
