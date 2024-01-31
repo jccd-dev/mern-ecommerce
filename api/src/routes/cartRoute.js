@@ -1,72 +1,57 @@
 import Express from "express";
-import { Cart } from "../models/CartModel.js";
 import {
   verifyToken,
   verifyTokenAndAdmin,
   verifyTokenAndAuth,
 } from "../middleware/verifyToken.js";
+import {
+  addCartController,
+  deleteCartController,
+  getAllCartsController,
+  getUserCartController,
+  updateCartController,
+} from "../controllers/cartController.js";
+import {
+  addCartValidation,
+  deleteCartValidition,
+  getUserCartValidation,
+  updateCartValidation,
+} from "../middleware/validationRules/cartValidation.js";
+import { validate } from "../middleware/validate.js";
 
 const router = Express.Router();
 
 //add to cart
-router.post("/", verifyToken, async (req, res) => {
-  const newCart = new Cart(req.body);
-  console.log(req.body);
-  try {
-    const savedCart = await newCart.save();
-    res.status(200).json(savedCart);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json("internal server error");
-  }
-});
+router.post("/", verifyToken, addCartValidation, validate, addCartController);
 
 //update user
-router.put("/:id", verifyTokenAndAuth, async (req, res) => {
-  try {
-    const updatedCart = await Cart.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.status(200).json(updatedCart);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
+router.put(
+  "/:id",
+  verifyTokenAndAuth,
+  updateCartValidation,
+  validate,
+  updateCartController
+);
 
 //delete cart
-router.delete("/:id", verifyTokenAndAuth, async (req, res) => {
-  try {
-    await Cart.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: "Successfully Deleted" });
-  } catch (error) {
-    res.status(500).json("Internal server error");
-  }
-});
+router.delete(
+  "/:id",
+  verifyTokenAndAuth,
+  deleteCartValidition,
+  validate,
+  deleteCartController
+);
 
 //get user cart
-router.get("/find/:userId", verifyTokenAndAuth, async (req, res) => {
-  try {
-    const cart = await Cart.findOne({ userId: req.params.userId });
-    res.status(200).json(cart);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json("internal server error");
-  }
-});
+router.get(
+  "/find/:userId",
+  verifyTokenAndAuth,
+  getUserCartValidation,
+  validate,
+  getUserCartController
+);
 
 //get all carts
-router.get("/", verifyTokenAndAdmin, async (req, res) => {
-  try {
-    const carts = await Cart.find();
-    res.status(200).json(carts);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json("internal server error");
-  }
-});
+router.get("/", verifyTokenAndAdmin, getAllCartsController);
 
 export default router;

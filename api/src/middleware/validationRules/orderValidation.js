@@ -19,15 +19,24 @@ export const createOrderValidation = checkSchema({
   },
   "products.*.quantity": {
     in: ["body"],
-    notEmpty: { errorMessage: "Product Quantity is required" },
+    isInt: {
+      options: { min: 1 },
+      errorMessage: "Quantity must be a positive integer",
+    },
   },
   "products.*.color": {
     in: ["body"],
     notEmpty: { errorMessage: "Product Color is required" },
+    isString: {
+      errorMessage: "Color must be a string",
+    },
   },
   "products.*.size": {
     in: ["body"],
     notEmpty: { errorMessage: "Product Size is required" },
+    isString: {
+      errorMessage: "Size must be a string",
+    },
   },
   amount: {
     in: ["body"],
