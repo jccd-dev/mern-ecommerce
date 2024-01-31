@@ -1,5 +1,4 @@
 import { body, param, query, checkSchema } from "express-validator";
-import mongoose from "mongoose";
 
 const productSchema = {
   title: {

@@ -73,6 +73,8 @@ const Success = () => {
             products: cartData.products.map((product) => ({
               productId: product._id,
               quantity: product.quantity,
+              color: product.color,
+              size: product.size,
             })),
             amount: cartData.total,
             address: state.stripeData.shipping_details?.address,
@@ -81,7 +83,7 @@ const Success = () => {
         } else {
           dispatch({
             type: "SET_ERROR",
-            payload: "The payment transaction was not completed successfully.",
+            payload: "The payment transaction was not successfull.",
           });
         }
       } catch (error) {
