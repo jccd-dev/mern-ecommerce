@@ -24,7 +24,7 @@ const Checkout = () => {
         const response = await userRequest.post(
           "checkout/payment",
           {
-            products: cart,
+            products: cart.products, //send the products data only
           },
           {
             headers: {
