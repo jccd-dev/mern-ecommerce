@@ -8,6 +8,7 @@ import orderRouter from "./routes/orderRoute.js";
 import stripeRouter from "./routes/stripe.js";
 import { dbconn } from "./config/dbconn.js";
 import cors from "cors";
+import globalErrorHandler from "./utils/globalErrorHandler.js";
 
 const app = express();
 app.use(express.json());
@@ -19,6 +20,15 @@ app.use("/api/products", productRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/checkout", stripeRouter);
+
+//middleware that handle no other route has matched
+app.use((req, res, next) => {
+  const error = new Error("Resource Not Found");
+  error.status = 404;
+  next(error);
+});
+
+app.use(globalErrorHandler);
 
 try {
   dbconn();

@@ -18,11 +18,18 @@ import {
   updateCartValidation,
 } from "../middleware/validationRules/cartValidation.js";
 import { validate } from "../middleware/validate.js";
+import { asyncErrorHandler } from "../utils/asyncErrorHandler.js";
 
 const router = Express.Router();
 
 //add to cart
-router.post("/", verifyToken, addCartValidation, validate, addCartController);
+router.post(
+  "/",
+  verifyToken,
+  addCartValidation,
+  validate,
+  asyncErrorHandler(addCartController)
+);
 
 //update user
 router.put(
@@ -30,7 +37,7 @@ router.put(
   verifyTokenAndAuth,
   updateCartValidation,
   validate,
-  updateCartController
+  asyncErrorHandler(updateCartController)
 );
 
 //delete cart
@@ -39,7 +46,7 @@ router.delete(
   verifyTokenAndAuth,
   deleteCartValidition,
   validate,
-  deleteCartController
+  asyncErrorHandler(deleteCartController)
 );
 
 //get user cart
@@ -48,10 +55,10 @@ router.get(
   verifyTokenAndAuth,
   getUserCartValidation,
   validate,
-  getUserCartController
+  asyncErrorHandler(getUserCartController)
 );
 
 //get all carts
-router.get("/", verifyTokenAndAdmin, getAllCartsController);
+router.get("/", verifyTokenAndAdmin, asyncErrorHandler(getAllCartsController));
 
 export default router;

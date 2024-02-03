@@ -6,6 +6,12 @@ const cartValidationRules = {
     notEmpty: { errorMessage: "User Id is required" },
     isMongoId: { errorMessage: "Invalid User Id" },
   },
+  products: {
+    in: ["body"],
+    notEmpty: {
+      errorMessage: "Products Data is required",
+    },
+  },
   "products.*.productId": {
     in: ["body"],
     notEmpty: { errorMessage: "Product Id is required" },
@@ -45,7 +51,7 @@ const cartIdValidation = {
   },
 };
 
-export const addCartValidation = checkSchema(cartValidationRules);
+export const addCartValidation = checkSchema({ ...cartValidationRules });
 
 export const updateCartValidation = checkSchema({
   ...cartValidationRules,

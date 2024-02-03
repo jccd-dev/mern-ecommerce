@@ -3,13 +3,24 @@ import { registerValidationRules } from "../middleware/validationRules/registerV
 import { validate } from "../middleware/validate.js";
 import { loginUser, registerUser } from "../controllers/authController.js";
 import { loginValidationSchema } from "../middleware/validationRules/loginValidation.js";
+import { asyncErrorHandler } from "../utils/asyncErrorHandler.js";
 
 const router = Express.Router();
 
 //register users
-router.post("/register", registerValidationRules(), validate, registerUser);
+router.post(
+  "/register",
+  registerValidationRules(),
+  validate,
+  asyncErrorHandler(registerUser)
+);
 
 //login
-router.post("/login", loginValidationSchema, validate, loginUser);
+router.post(
+  "/login",
+  loginValidationSchema,
+  validate,
+  asyncErrorHandler(loginUser)
+);
 
 export default router;

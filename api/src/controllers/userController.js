@@ -11,30 +11,20 @@ export const updateUserController = async (req, res) => {
     lastName: req.body.last_name,
     phoneNumber: req.body.p_number,
   };
-
-  try {
-    const updatedUser = await Users.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: userData,
-      },
-      { new: true }
-    );
-    res.status(200).json(updatedUser);
-  } catch (error) {
-    res.status(500).json(error);
-  }
+  const updatedUser = await Users.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: userData,
+    },
+    { new: true }
+  );
+  res.status(200).json(updatedUser);
 };
 
 //delete
 export const deleteUserController = async (req, res) => {
-  try {
-    await Users.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: "Deleted Successfully" });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "internal server error" });
-  }
+  await Users.findByIdAndDelete(req.params.id);
+  res.status(200).json({ message: "Deleted Successfully" });
 };
 
 //find user
@@ -44,16 +34,11 @@ export const getUserController = async (req, res) => {
     isAdmin: 0,
   };
 
-  try {
-    const user = await Users.findById(req.params.id, projection);
-    res.status(200).json(user);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "internal server error" });
-  }
+  const user = await Users.findById(req.params.id, projection);
+  res.status(200).json(user);
 };
 
-// rettrieve all users data except for admin data
+// retrieve all users data except for admin data
 export const getUsersController = async (req, res) => {
   const projection = {
     password: 0,
@@ -61,17 +46,12 @@ export const getUsersController = async (req, res) => {
   };
 
   const newQuery = req.query.new;
-  try {
-    const users = newQuery
-      ? await Users.find({ isAdmin: { $ne: true } }, projection)
-          .sort({ _id: -1 })
-          .limit(5)
-      : await Users.find({ isAdmin: { $ne: true } }, projection);
-    res.status(200).json(users);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal server Error" });
-  }
+  const users = newQuery
+    ? await Users.find({ isAdmin: { $ne: true } }, projection)
+        .sort({ _id: -1 })
+        .limit(5)
+    : await Users.find({ isAdmin: { $ne: true } }, projection);
+  res.status(200).json(users);
 };
 
 export const userStatsController = async (req, res) => {
@@ -84,36 +64,30 @@ export const userStatsController = async (req, res) => {
     today.getDate()
   );
 
-  try {
-    // Aggregate function to gather user statistics.
-    const data = await Users.aggregate([
-      // $match is used to filter users created in the last year.
-      { $match: { createdAt: { $gte: lastYear } } },
+  // Aggregate function to gather user statistics.
+  const data = await Users.aggregate([
+    // $match is used to filter users created in the last year.
+    { $match: { createdAt: { $gte: lastYear } } },
 
-      // $project is used to extract the month part from each user's createdAt date.
-      {
-        $project: {
-          month: { $month: "$createdAt" },
-        },
+    // $project is used to extract the month part from each user's createdAt date.
+    {
+      $project: {
+        month: { $month: "$createdAt" },
       },
+    },
 
-      // $group is used to group the data by month and count the total users per month.
-      {
-        $group: {
-          _id: "$month",
-          total: { $sum: 1 },
-        },
+    // $group is used to group the data by month and count the total users per month.
+    {
+      $group: {
+        _id: "$month",
+        total: { $sum: 1 },
       },
+    },
 
-      // Optional: Sort the result by month for chronological order.
-      { $sort: { _id: 1 } },
-    ]);
+    // Optional: Sort the result by month for chronological order.
+    { $sort: { _id: 1 } },
+  ]);
 
-    // Sending the aggregated data as a response.
-    res.status(200).json(data);
-  } catch (error) {
-    // Log the error for debugging and send a 500 internal server error response.
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
-  }
+  // Sending the aggregated data as a response.
+  res.status(200).json(data);
 };

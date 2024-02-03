@@ -20,6 +20,7 @@ import {
   updateOrderValidation,
 } from "../middleware/validationRules/orderValidation.js";
 import { validate } from "../middleware/validate.js";
+import { asyncErrorHandler } from "./../utils/asyncErrorHandler.js";
 
 const router = Express.Router();
 
@@ -29,7 +30,7 @@ router.post(
   verifyToken,
   createOrderValidation,
   validate,
-  createOrderController
+  asyncErrorHandler(createOrderController)
 );
 
 //update order
@@ -38,7 +39,7 @@ router.put(
   verifyTokenAndAdmin,
   updateOrderValidation,
   validate,
-  updateOrderController
+  asyncErrorHandler(updateOrderController)
 );
 
 //delete order
@@ -47,7 +48,7 @@ router.delete(
   verifyTokenAndAdmin,
   deleteOrderValidation,
   validate,
-  deleteOrderController
+  asyncErrorHandler(deleteOrderController)
 );
 
 //get user orders
@@ -56,7 +57,7 @@ router.get(
   verifyTokenAndAuth,
   getUserOrdersValidation,
   validate,
-  getUserOrdersController
+  asyncErrorHandler(getUserOrdersController)
 );
 
 //get all orders

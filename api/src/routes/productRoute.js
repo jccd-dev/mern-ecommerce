@@ -15,6 +15,7 @@ import {
   getProducts,
   updateProduct,
 } from "./../controllers/productsController.js";
+import { asyncErrorHandler } from "./../utils/asyncErrorHandler.js";
 
 const router = Express.Router();
 
@@ -23,7 +24,7 @@ router.post(
   verifyTokenAndAdmin,
   createProductValidationSchema,
   validate,
-  createProduct
+  asyncErrorHandler(createProduct)
 );
 
 //update product
@@ -32,7 +33,7 @@ router.put(
   verifyTokenAndAdmin,
   updateProductSchema,
   validate,
-  updateProduct
+  asyncErrorHandler(updateProduct)
 );
 
 //delete product
@@ -41,13 +42,18 @@ router.delete(
   verifyTokenAndAdmin,
   deleteProductSchema,
   validate,
-  deleteProduct
+  asyncErrorHandler(deleteProduct)
 );
 
 //get a product
-router.get("/find/:id", getProductSchema, validate, getProduct);
+router.get(
+  "/find/:id",
+  getProductSchema,
+  validate,
+  asyncErrorHandler(getProduct)
+);
 
 //get all products
-router.get("/", getProductsSchema, validate, getProducts);
+router.get("/", getProductsSchema, validate, asyncErrorHandler(getProducts));
 
 export default router;

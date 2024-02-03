@@ -1,5 +1,4 @@
 import Express from "express";
-import { Users } from "../models/UserModel.js";
 import {
   verifyTokenAndAdmin,
   verifyTokenAndAuth,
@@ -18,6 +17,7 @@ import {
   userUpdateValidation,
 } from "../middleware/validationRules/userValidations.js";
 import { validate } from "./../middleware/validate.js";
+import { asyncErrorHandler } from "./../utils/asyncErrorHandler.js";
 
 const router = Express.Router();
 
@@ -27,7 +27,7 @@ router.put(
   verifyTokenAndAuth,
   userUpdateValidation,
   validate,
-  updateUserController
+  asyncErrorHandler(updateUserController)
 );
 
 //delete user
@@ -36,7 +36,7 @@ router.delete(
   verifyTokenAndAuth,
   deleteUserValidation,
   validate,
-  deleteUserController
+  asyncErrorHandler(deleteUserController)
 );
 
 //get specific user
@@ -45,18 +45,16 @@ router.get(
   verifyTokenAndAdmin,
   getUserValidation,
   validate,
-  getUserController
+  asyncErrorHandler(getUserController)
 );
 
 //get all user except for admin
-router.get(
-  "/",
-  verifyTokenAndAdmin,
-  getUsersValidation,
-  validate,
-  getUsersController
-);
+router.get("/", verifyTokenAndAdmin, asyncErrorHandler(getUsersController));
 
 //get user statistics
-router.get("/stats", verifyTokenAndAdmin, userStatsController);
+router.get(
+  "/stats",
+  verifyTokenAndAdmin,
+  asyncErrorHandler(userStatsController)
+);
 export default router;
