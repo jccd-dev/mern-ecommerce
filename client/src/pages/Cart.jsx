@@ -2,16 +2,21 @@ import SummaryItem from "../components/Cart/SummaryItem";
 import TopBtn from "../components/Cart/TopBtn";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faMinus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Announcement from "../components/Announcement";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { removeProduct } from "../redux/cart";
 
 const Cart = () => {
+  const dispatch = useDispatch();
   const shipping = 10;
   const cart = useSelector((state) => state.cart);
 
+  const removeCartProduct = (product) => {
+    dispatch(removeProduct(product));
+  };
   return (
     <>
       <Navbar />
@@ -62,22 +67,35 @@ const Cart = () => {
                     </span>
                   </div>
                 </div>
-                <div className="priceDetails flex flex-1 flex-row items-center justify-around md:flex-col md:justify-center">
-                  <div className="amount mb-5 flex items-center font-bold">
-                    <FontAwesomeIcon
-                      icon={faMinus}
-                      className="cursor-pointer text-lg"
-                    />
-                    <span className="quantity border-sage mx-2 flex h-8 w-8 items-center justify-center rounded-lg border text-lg">
-                      {product.quantity}
-                    </span>
-                    <FontAwesomeIcon
-                      icon={faPlus}
-                      className="cursor-pointer text-lg"
-                    />
+                <div className="flex flex-1 flex-row">
+                  <div className="priceDetails flex w-3/4 flex-row items-center justify-around md:flex-col md:justify-center">
+                    <div className="amount flex items-center justify-center font-bold md:mb-5">
+                      <FontAwesomeIcon
+                        icon={faMinus}
+                        className="cursor-pointer text-lg"
+                      />
+                      <span className="quantity border-sage mx-2 flex h-8 w-8 items-center justify-center rounded-lg border text-lg">
+                        {product.quantity}
+                      </span>
+                      <FontAwesomeIcon
+                        icon={faPlus}
+                        className="cursor-pointer text-lg"
+                      />
+                    </div>
+                    <div className="prodPrice mb-0 text-3xl font-light md:mb-5">
+                      <b>$</b> {product.price * product.quantity}
+                    </div>
                   </div>
-                  <div className="prodPrice mb-5 text-3xl font-light md:mb-0">
-                    <b>$</b> {product.price * product.quantity}
+                  <div className="remove flex w-1/4 items-center justify-center p-2">
+                    <span
+                      className="flex h-full w-full cursor-pointer items-center justify-center rounded-xl bg-red-500 p-2 md:p-0"
+                      onClick={() => removeCartProduct(product)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faTrash}
+                        className="text-lg text-white"
+                      />
+                    </span>
                   </div>
                 </div>
               </div>

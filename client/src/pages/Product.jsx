@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
 import Color from "../components/Product/Color";
+import Size from "../components/Product/Size";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
@@ -11,6 +12,7 @@ import { useEffect, useState } from "react";
 import { publicRequest } from "../utils/requestMethod";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../redux/cart";
+import { timestampGenerator } from "./../utils/timestampGenerator";
 
 const Product = () => {
   const { id } = useParams();
@@ -41,6 +43,10 @@ const Product = () => {
     setColor(color);
   };
 
+  const handleSetSize = (size) => {
+    setSize(size);
+  };
+
   /**
    * handle quantity (minimum of 1)
    *
@@ -51,7 +57,17 @@ const Product = () => {
   };
 
   const handleAddCart = () => {
-    dispatch(addProduct({ ...product, quantity, color, size }));
+    const uniqueTimestamp = timestampGenerator();
+    console.log(uniqueTimestamp);
+    dispatch(
+      addProduct({
+        ...product,
+        quantity,
+        color,
+        size,
+        timestamp: uniqueTimestamp,
+      }),
+    );
   };
 
   return (
@@ -59,41 +75,42 @@ const Product = () => {
       <Navbar />
       <Announcement />
       <section className="flex flex-col p-3 md:flex-row md:p-12">
-        <div className="imgcon h-[40vh] flex-1 md:h-[70vh] lg:h-[90vh]">
+        <div className="imgcon flex h-[40vh] flex-1 items-center justify-center md:h-[60vh] lg:h-[80vh]">
           <img
             src={product.image}
             alt=""
             className="object-fit h-full w-auto "
           />
         </div>
-        <div className="info w-full flex-1 p-3 md:px-12">
+        <div className="info flex w-full flex-1 flex-col p-3 md:px-12">
           <h1 className="title text-3xl font-semibold">{product.title}</h1>
-          <div className="desc my-5">
-            <p>{product.description}</p>
-          </div>
-          <span className="price text-4xl font-extralight">
+          <span className="price mt-2 max-w-32 rounded-3xl bg-primary px-3 py-2 text-2xl text-white">
             <b>$</b> {product.price}
           </span>
-          <div className="fltercon my-7 flex w-full justify-between md:w-1/2">
-            <div className="flex items-center filter">
-              <span className="filtertitle text-xl font-light">Color: </span>
-              {product.color?.map((item) => (
-                <Color color={item} key={item} sColor={handleSetColor} />
-              ))}
+          <div className="desc my-2">
+            <p>{product.description}</p>
+          </div>
+
+          <div className="fltercon my-7 flex  w-full flex-col justify-between md:w-1/2">
+            <div className="mb-5 flex flex-col items-start filter">
+              <span className="filtertitle mb-2 text-xl font-light">
+                Colors:
+              </span>
+              <Color
+                colors={product.color}
+                setColor={handleSetColor}
+                currColor={color}
+              />
             </div>
-            <div className="filter">
-              <span className="filtertitle text-xl font-light">Size: </span>
-              <select
-                name="size"
-                id="size"
-                className="ml-2 p-2 outline-none"
-                onChange={(e) => setSize(e.target.value)}
-              >
-                <option disabled>Size</option>
-                {product.size?.map((size) => (
-                  <option key={size}>{size}</option>
-                ))}
-              </select>
+            <div className="mb-5 flex flex-col items-start filter">
+              <span className="filtertitle mb-2 text-xl font-light">
+                Sizes:
+              </span>
+              <Size
+                sizes={product.size}
+                setSize={handleSetSize}
+                currSize={size}
+              />
             </div>
           </div>
           <div className="addcon flex w-full items-center justify-between md:w-1/2">

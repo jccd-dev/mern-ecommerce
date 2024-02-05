@@ -7,7 +7,7 @@ import ProductList from "./pages/ProductList";
 import Register from "./pages/Register";
 
 import { Routes, Route, Navigate } from "react-router-dom";
-import Success from "./pages/Success";
+import CheckoutStatus from "./pages/CheckoutStatus";
 import Checkout from "./pages/Checkout";
 import Return from "./pages/Return";
 import { useSelector } from "react-redux";
@@ -27,7 +27,7 @@ function App() {
         <Route path="/products/:category?" element={<ProductList />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/success" element={<Success />} />
+        <Route path="/checkout-status" element={<CheckoutStatus />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/return" element={<Return />} />
       </Routes>

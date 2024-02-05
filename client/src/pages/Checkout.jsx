@@ -42,8 +42,9 @@ const Checkout = () => {
     makeSession();
   }, [cart]);
 
+  //todo here it should check is stripeSession is already complete or not then proceed to
   const handleOrders = () => {
-    navigate("/success", {
+    navigate("/checkout-status", {
       state: {
         sessionId: stripeSessionId,
         cart,

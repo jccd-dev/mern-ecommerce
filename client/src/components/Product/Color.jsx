@@ -1,18 +1,16 @@
-const Color = (props) => {
-  const style = {
-    backgroundColor: props.color,
-  };
-
-  const selectColor = () => {
-    props.sColor(props.color);
-  };
-
+const Color = ({ colors, setColor, currColor }) => {
   return (
-    <div
-      className="mx-1 h-5 w-5 cursor-pointer rounded-full"
-      style={style}
-      onClick={selectColor}
-    ></div>
+    <div className="flex flex-wrap gap-2">
+      {colors?.map((item) => (
+        <div
+          className={`cursor-pointer rounded-3xl bg-slate-200 px-4 py-2 ${currColor === item ? "border-2 border-primary" : ""}`}
+          key={item}
+          onClick={() => setColor(item)}
+        >
+          {item}
+        </div>
+      ))}
+    </div>
   );
 };
 
