@@ -5,6 +5,7 @@ export default (err, req, res, next) => {
   const response = {
     message: err.message || "Interval Server Error",
   };
+  response.errors = [{ msg: "Something went wrong in the server" }];
 
   // Check if error is an instance of CustomError
   if (err instanceof AppError) {
@@ -14,7 +15,7 @@ export default (err, req, res, next) => {
       response.errors = err.data.errors;
     } else if (err.data) {
       // Handling other custom errors that might carry additional data
-      response.details = err.data;
+      response.errors = [err.data];
     }
   }
 

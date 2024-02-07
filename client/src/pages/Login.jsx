@@ -1,11 +1,18 @@
 import { useState } from "react";
 import { login } from "../utils/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 const Login = () => {
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { from, fromCart } = location.state || {
+    from: { pathname: "/" },
+    fromCart: false,
+  };
 
   const userLogin = useSelector((state) => state.user);
 
@@ -23,11 +30,21 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     login(dispatch, loginData);
+
+    if (!userLogin.isError.error) {
+      if (fromCart) {
+        navigate("/cart");
+      } else {
+        navigate(from.pathname);
+      }
+    }
+
     console.log(loginData);
   };
 
   const imgURL =
     "https://images.unsplash.com/photo-1554342872-034a06541bad?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+
   return (
     <div
       className="relative flex h-screen w-screen items-center justify-center bg-center object-cover md:bg-cover"
@@ -37,9 +54,13 @@ const Login = () => {
       <div className="wrapper z-10  mx-3 w-full bg-white p-5 md:mx-0 md:w-1/4">
         <h1 className="title tex-2xl font-[300]">SIGN IN</h1>
         {userLogin.isError.error && (
-          <span className="mb-2 w-full text-center text-sm text-red-500">
-            {userLogin.isError.message}
-          </span>
+          <ul className="mb-2 ml-4 list-disc text-sm text-red-500">
+            {userLogin.isError.message?.map((error, index) => (
+              <li className="" key={index}>
+                {Object.values(error)}
+              </li>
+            ))}
+          </ul>
         )}
 
         <form
@@ -79,7 +100,7 @@ const Login = () => {
             Forgot password?
           </a>
           <a
-            href=""
+            href="/register"
             className="link my-2 cursor-pointer text-xs uppercase text-slate-900 hover:underline"
           >
             Create new account

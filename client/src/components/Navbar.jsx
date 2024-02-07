@@ -3,11 +3,23 @@ import {
   faMagnifyingGlass,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../redux/userSlice";
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartQuantity = useSelector((state) => state.cart.quantity);
-  console.log(cartQuantity);
+  const currentUser = useSelector((state) => state.user.currentUser);
+
+  const handleLogout = () => {
+    alert("logout");
+    dispatch(logout());
+    // If you're using localStorage or sessionStorage, clear that as well
+    localStorage.removeItem("user");
+    navigate("/login");
+    // Redirect to login or home page as needed
+  };
   return (
     <div className="h-[60px]">
       <div className="flex h-full items-center justify-between px-4 py-2 md:px-5">
@@ -31,12 +43,28 @@ const Navbar = () => {
           id="right"
           className="flex flex-[2] items-center justify-center md:flex-1 md:justify-end"
         >
-          <div className="ml-2 cursor-pointer text-xs md:ml-6 md:text-sm">
-            Register
-          </div>
-          <div className="ml-2 cursor-pointer text-xs md:ml-6 md:text-sm">
-            Login
-          </div>
+          {currentUser ? (
+            <div
+              className="ml-2 cursor-pointer text-xs md:ml-6 md:text-sm"
+              onClick={handleLogout}
+            >
+              Logout
+            </div>
+          ) : (
+            <>
+              <Link to={"/login"}>
+                <div className="ml-2 cursor-pointer text-xs md:ml-6 md:text-sm">
+                  Login
+                </div>
+              </Link>
+              <Link to={"/register"}>
+                <div className="ml-2 cursor-pointer text-xs md:ml-6 md:text-sm">
+                  Register
+                </div>
+              </Link>
+            </>
+          )}
+
           <div className="ml-2 cursor-pointer text-xs md:ml-6 md:text-sm">
             {/* <Badge badgeContent={4} color="primary">
               <ShoppingCartOutlined />

@@ -8,9 +8,9 @@ const registerUser = async (req, res) => {
     username: req.body.username,
     email: req.body.email,
     password: await hashPassword(req.body.password),
-    firstName: req.body.first_name,
-    lastName: req.body.last_name,
-    phoneNumber: req.body.p_number,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    phoneNumber: req.body.phoneNumber,
   });
 
   const saveUser = await newUser.save();

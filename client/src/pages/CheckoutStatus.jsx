@@ -104,7 +104,7 @@ const CheckoutStatus = () => {
     };
 
     storeOrder();
-  }, [state.stripeData, cartData, dispatch]);
+  }, [state.stripeData, cartData, dispatch, user]);
 
   return (
     <>

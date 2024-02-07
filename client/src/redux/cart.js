@@ -14,6 +14,38 @@ const cartSlice = createSlice({
       state.products.push(action.payload);
       state.total += action.payload.price * action.payload.quantity;
     },
+    incrementQuantity: (state, action) => {
+      const { id, timestamp } = action.payload;
+      const productIndex = state.products.findIndex(
+        (product) => product.id === id && product.timestamp === timestamp,
+      );
+
+      if (productIndex !== -1) {
+        const productToUpdate = state.products[productIndex];
+        state.products[productIndex] = {
+          ...productToUpdate,
+          quantity: productToUpdate.quantity + 1,
+        };
+        state.total += productToUpdate.price;
+      }
+    },
+    decrementQuantity: (state, action) => {
+      const { id, timestamp } = action.payload;
+      const productIndex = state.products.findIndex(
+        (product) => product.id === id && product.timestamp === timestamp,
+      );
+
+      if (productIndex !== -1) {
+        const productToUpdate = state.products[productIndex];
+        if (productToUpdate.quantity > 1) {
+          state.products[productIndex] = {
+            ...productToUpdate,
+            quantity: productToUpdate.quantity - 1,
+          };
+          state.total -= productToUpdate.price;
+        }
+      }
+    },
     removeProduct: (state, action) => {
       const productIndex = state.products.findIndex(
         (product) =>
@@ -27,7 +59,8 @@ const cartSlice = createSlice({
         const removedTotal = productToRemove.price * removedQuantity;
 
         // Update the cart's quantity and total.
-        state.quantity -= removedQuantity;
+        //each instance of the porduct in the array serve as one quantity in cart
+        state.quantity -= 1;
         state.total -= removedTotal;
 
         // Create a new array with the product removed using spread syntax.
@@ -42,5 +75,11 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addProduct, removeProduct, resetCart } = cartSlice.actions;
+export const {
+  addProduct,
+  removeProduct,
+  resetCart,
+  decrementQuantity,
+  incrementQuantity,
+} = cartSlice.actions;
 export default cartSlice.reducer;

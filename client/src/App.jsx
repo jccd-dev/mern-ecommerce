@@ -11,10 +11,12 @@ import CheckoutStatus from "./pages/CheckoutStatus";
 import Checkout from "./pages/Checkout";
 import Return from "./pages/Return";
 import { useSelector } from "react-redux";
+import ProtectedRoutes from "./pages/ProtectedRoutes";
 
 function App() {
   // temporary for user authentication
   const userAuth = useSelector((state) => state.user.currentUser);
+
   return (
     <>
       <Routes>
@@ -28,7 +30,14 @@ function App() {
         <Route path="/product/:id" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout-status" element={<CheckoutStatus />} />
-        <Route path="/checkout" element={<Checkout />} />
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoutes>
+              <Checkout />
+            </ProtectedRoutes>
+          }
+        />
         <Route path="/return" element={<Return />} />
       </Routes>
     </>

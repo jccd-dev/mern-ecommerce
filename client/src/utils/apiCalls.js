@@ -23,7 +23,8 @@ export const login = async (dispatch, user) => {
     const response = await publicRequest.post("auth/login", user);
     dispatch(loginSuccess(response.data));
   } catch (error) {
-    const errorMessage = error.response.data.message;
+    const errorMessage = error.response.data.errors;
+    console.log(errorMessage);
     dispatch(loginFailiure(errorMessage));
   }
 };

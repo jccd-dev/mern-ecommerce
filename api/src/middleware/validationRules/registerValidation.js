@@ -20,19 +20,22 @@ export const registerValidationRules = () => {
       .withMessage("Password must contain a number")
       .matches(/[a-zA-Z]/)
       .withMessage("Password must contain a letter"),
-    body("first_name")
+    body("firstName")
       .not()
       .isEmpty()
       .withMessage("First Name is Required")
       .matches(/^[A-Za-z\s]+$/)
       .withMessage("First Name must contain only letters and space"),
-    body("last_name")
+    body("lastName")
       .not()
       .isEmpty()
       .withMessage("Last Name is Required")
       .matches(/^[A-Za-z\s]+$/)
       .withMessage("Last Name must contain only letters and space"),
-    body("p_number").optional(true).isMobilePhone(),
+    body("phoneNumber")
+      .isMobilePhone()
+      .withMessage("Invalid Phone Number")
+      .optional({ nullable: true, checkFalsy: true }),
     body("username")
       .not()
       .isEmpty()

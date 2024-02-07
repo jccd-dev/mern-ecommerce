@@ -18,9 +18,9 @@ const Product = () => {
   const { id } = useParams();
 
   const [product, setProduct] = useState({});
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [size, setSize] = useState("");
+  const [size, setSize] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -58,16 +58,17 @@ const Product = () => {
 
   const handleAddCart = () => {
     const uniqueTimestamp = timestampGenerator();
-    console.log(uniqueTimestamp);
-    dispatch(
-      addProduct({
-        ...product,
-        quantity,
-        color,
-        size,
-        timestamp: uniqueTimestamp,
-      }),
-    );
+    if (color && size) {
+      dispatch(
+        addProduct({
+          ...product,
+          quantity,
+          color,
+          size,
+          timestamp: uniqueTimestamp,
+        }),
+      );
+    }
   };
 
   return (
@@ -130,8 +131,9 @@ const Product = () => {
               />
             </div>
             <button
-              className="cursor-pointer bg-yellowed px-6 py-2 text-lg font-semibold hover:bg-yellow-500 md:px-4"
+              className="cursor-pointer bg-yellowed px-6 py-2 text-lg font-semibold hover:bg-yellow-500 disabled:cursor-not-allowed md:px-4"
               onClick={handleAddCart}
+              disabled={!color || !size}
             >
               Add to Cart
             </button>

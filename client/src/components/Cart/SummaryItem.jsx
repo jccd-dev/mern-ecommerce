@@ -8,7 +8,7 @@ const SummaryItem = ({ itemText, price }) => {
   return (
     <div
       className={`sumItem my-7 flex justify-between font-normal ${
-        itemText === "Total" ? "font-semibold text-xl" : "text-lg"
+        itemText === "Total" ? "text-xl font-semibold" : "text-lg"
       }`}
     >
       <div className="sumItemText">{itemText}</div>
