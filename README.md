@@ -2,7 +2,7 @@
 
 ### Project Summary:
 
-This personal project showcases a work-in-progress e-commerce platform designed to cater to fashion enthusiasts, built using the powerful MERN stack (MongoDB, Express, React, and Node.js). The core backend functionalities are nearing completion. While the front-end implementation is currently basic to facilitate backend testing, it will be extensively refined in the future.
+This personal project showcases a work-in-progress e-commerce fashion clothing website, built using the powerful MERN stack (MongoDB, Express, React, and Node.js). The core backend functionalities are nearing completion. While the front-end implementation is currently basic to facilitate backend testing, it will be extensively refined in the future.
 
 ### Development Status:
 
