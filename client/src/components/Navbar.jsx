@@ -37,7 +37,9 @@ const Navbar = () => {
           </div>
         </section>
         <section id="center" className="flex-1 text-center">
-          <h1 className="text-sm font-bold md:text-2xl">JC-SHOP</h1>
+          <Link to={"/"}>
+            <h1 className="text-sm font-bold md:text-2xl">JC-SHOP</h1>
+          </Link>
         </section>
         <section
           id="right"

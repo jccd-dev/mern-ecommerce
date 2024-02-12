@@ -1,6 +1,7 @@
 import Announcement from "../components/Announcement";
 import Carousel from "../components/CarouselS";
 import Categories from "../components/Categories";
+import FeaturedProducts from "../components/FeaturedProducts";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
@@ -13,7 +14,7 @@ const Home = () => {
       <Navbar />
       <Carousel />
       <Categories />
-      {/* <Products /> */}
+      <FeaturedProducts />
       <Newsletter />
       <Footer bgColor={"bg-transparent"} />
     </>

@@ -1,4 +1,3 @@
-import { popularProducts } from "../data/DataItems";
 import ProductItem from "./ProductItem";
 import { useEffect, useState } from "react";
 import axios from "axios";

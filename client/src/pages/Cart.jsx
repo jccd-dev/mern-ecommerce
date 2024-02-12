@@ -134,7 +134,7 @@ const Cart = () => {
             <Link to={"/checkout"}>
               <button
                 className="w-full bg-yellowed p-2 font-semibold text-black  hover:bg-yellow-500 disabled:cursor-not-allowed"
-                disabled={cart.product == null}
+                disabled={cart.products.length <= 0}
               >
                 Checkout
               </button>
