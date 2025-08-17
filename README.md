@@ -1,4 +1,4 @@
-# Fashion Shop: A MERN Stack E-commerce (in Progress)
+# Fashion Shop: A MERN Stack E-commerce (old project)
 
 ### Project Summary:
 
